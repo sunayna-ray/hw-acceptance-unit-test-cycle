@@ -47,10 +47,10 @@ describe MoviesController do
  end
 
     describe 'get index function' do
-        let!(:movie_1) { Movie.create!(title: 'Star Wars', director: 'George Lucas') }
-        let!(:movie_2) { Movie.create!(title: 'Blade Runner', director: 'Ridley Scott') }
-        let!(:movie_3) { Movie.create!(title: 'Alien') }
-        let!(:movie_4) { Movie.create!(title: 'THX-1138', director: 'George Lucas') }
+        let!(:movie_1) { FactoryBot.create(:movie, title: 'Star Wars', director: 'George Lucas') }
+        let!(:movie_2) { FactoryBot.create(:movie, title: 'Blade Runner', director: 'Ridley Scott') }
+        let!(:movie_3) { FactoryBot.create(:movie, title: "Alien") }
+        let!(:movie_4) { FactoryBot.create(:movie, title: 'THX-1138', director: 'George Lucas')}
 
         it 'should get all the movies' do
             get :index

@@ -9,9 +9,6 @@ class Movie < ActiveRecord::Base
     Movie.where(director: director).pluck(:title)
   end
   
-   def self.ratings 
-    Movie.select(:rating).distinct.inject([]) { |a,m| a.push m.rating }
- end
   
   def self.similar_director_movies movie_director
       if not movie_director.nil?
