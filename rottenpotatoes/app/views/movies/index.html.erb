@@ -3,14 +3,12 @@
 
 <%#  Part 2: Start here... %>
 <%= form_tag movies_path, :method => :get, :id => 'ratings_form' do %>
-  <%= hidden_field_tag "title_sort", true if @title_header %>
-  <%= hidden_field_tag ":release_date_sort", true if @date_header %>
   Include:
   <% @all_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[#{rating}]", 1, @selected_ratings.include?(rating), :id => "ratings_#{rating}" %>
+    <%= check_box_tag "ratings[#{rating}]", 1, @ratings.include?(rating), :id => "ratings_#{rating}" %>
   <% end %>
-  <%= submit_tag 'Refresh', :id => 'ratings_submit', :class => 'btn btn-primary' %>
+  <%= submit_tag 'Refresh' %>
 <% end %>
 
 <table class="table table-striped col-md-12" id="movies">

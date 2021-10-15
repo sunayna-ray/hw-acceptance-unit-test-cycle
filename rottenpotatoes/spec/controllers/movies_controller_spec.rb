@@ -3,22 +3,35 @@ require 'rails_helper'
 describe MoviesController do
         
   describe 'Search movies by the same director' do
-    let!(:movie_1) { Movie.create!(title: 'Star Wars', director: 'George Lucas') }
-    let!(:movie_2) { Movie.create!(title: 'Blade Runner', director: 'Ridley Scott') }
-    let!(:movie_3) { Movie.create!(title: 'Alien') }
-    let!(:movie_4) { Movie.create!(title: 'THX-1138', director: 'George Lucas') }
+    let!(:movie_1) { FactoryBot.create(:movie, title: 'Star Wars', director: 'George Lucas') }
+    let!(:movie_2) { FactoryBot.create(:movie, title: 'Blade Runner', director: 'Ridley Scott') }
+    let!(:movie_3) { FactoryBot.create(:movie, title: "Alien") }
+    let!(:movie_4) { FactoryBot.create(:movie, title: 'THX-1138', director: 'George Lucas')}
     
-    it 'should assign the list of movies with the same director if director exists' do
-      get :similar, id: movie_1.id
-      movies=[]
+     it 'should assign the list of movies with the same director if director exists' do
+            get :similar, id: movie_1.id
             
-      for i in assigns(:sim_movies) 
-        movies.append(i.title)
-      end
+            movies=[]
+            
+            for i in assigns(:sim_movies) 
+                movies.append(i.title)
+            end
 
-      expect(movies).to eql(['Star Wars', 'THX-1138'])
-    end
-  
+            expect(movies).to eql(['Star Wars', 'THX-1138'])
+        end
+        
+    
+    it 'should not assign rest of the movies' do
+            get :similar, id: movie_1.id
+
+            movies=[]
+
+            for i in assigns(:sim_movies) 
+                movies.append(i.title)
+            end
+
+            expect(movies).not_to eql(['Blade Runner', 'Alien'])
+        end
         
     it 'should display the similar.html.erb template if director exists' do
         get :similar, id: movie_1.id
@@ -143,6 +156,5 @@ describe MoviesController do
       expect(response).to render_template('edit')
     end
   end
-  
 
 end
